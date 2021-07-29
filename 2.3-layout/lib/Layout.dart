@@ -6,6 +6,22 @@ class Layout extends StatefulWidget {
 }
 
 class LayoutState extends State<Layout> {
+  Row criarRow(String texto) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        new Container(
+          margin: EdgeInsets.only(top: 15),
+          child: new Text(texto,
+              style: TextStyle(color: Colors.white, fontSize: 18)),
+          //height: 50,
+          width: 350,
+          color: Colors.blueAccent,
+          padding: EdgeInsets.all(15))
+      ]
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,113 +31,153 @@ class LayoutState extends State<Layout> {
 
         // Menu Lateral (hambúrguer)
         drawer: new Drawer(
-          child: new ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              // Cabeçalho do Menu
-              new DrawerHeader(
-                //decoration: BoxDecoration(color: Colors.blue),
-                child: new Text("Itens do Menu")
-              ),
+            child: new ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            // Cabeçalho do Menu
+            DrawerHeader(
+              child: new Text("Itens do Menu"),
+              //decoration: new BoxDecoration(color: Colors.blueAccent)
+            ),
 
-              // Item 1
-              new ListTile(
+            // Item 1
+            new ListTile(
                 title: new Text("Flutter"),
                 subtitle: new Text("Tudo são Widgets"),
-                leading: new Icon(
-                  Icons.flash_on,
-                  color: Colors.red.shade400,
-                  size: 32,
-                ),
                 trailing: new Icon(Icons.keyboard_arrow_right),
+                leading: new Icon(Icons.flash_on,
+                    color: Colors.red.shade400, size: 32),
                 onTap: () {
-                  // Aqui vai o código do método...
+                  // Aqui vai o código de um método
                   Navigator.pop(context);
-                },
-              ),
+                }),
 
-              // Item 2
-              ListTile(
+            // Item 2
+            new ListTile(
                 title: new Text("Dart"),
                 subtitle: new Text("É muito forte"),
-                leading: new Icon(
-                  Icons.mood,
-                  color: Colors.amber.shade700,
-                  size: 32,
-                ),
                 trailing: new Icon(Icons.keyboard_arrow_right),
+                leading: new Icon(Icons.mood,
+                    color: Colors.amber.shade700, size: 32),
                 onTap: () {
-                  // Aqui vai o código do método...
+                  // Aqui vai o código de um método
                   Navigator.pop(context);
-                },
-              ),
+                }),
 
-              // Item 3
-              ListTile(
+            // Item 3
+            new ListTile(
                 title: new Text("Cafessíneo"),
                 subtitle: new Text("Quero cafééé"),
-                leading: new Icon(
-                  Icons.coffee,
-                  color: Colors.brown,
-                  size: 32,
-                ),
                 trailing: new Icon(Icons.keyboard_arrow_right),
+                leading: new Icon(Icons.coffee, color: Colors.brown, size: 32),
                 onTap: () {
-                  // Aqui vai o código do método...
+                  // Aqui vai o código de um método
                   Navigator.pop(context);
-                },
-              )
-            ],
-          ),
-        ),
+                }),
 
+            // Item 4
+            new ListTile(
+                title: new Text("Configurações"),
+                subtitle: new Text("Ajustes no Sistema"),
+                trailing: new Icon(Icons.keyboard_arrow_right),
+                leading: new Icon(Icons.settings, color: Colors.teal, size: 32),
+                onTap: () {
+                  // Aqui vai o código de um método
+                  Navigator.pop(context);
+                })
+          ],
+        )),
+
+        body: new Column(
+          children: [
+            criarRow("Linha de teste"),
+            criarRow("Esta é a segunda linha"),
+            criarRow("Terceira linha"),
+
+            // Row (linha) criada manualmente
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: new Text(
+                    "Linha criada manualmente",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18
+                    )
+                  ),
+                  //height: 50,
+                  width: 350,
+                  color: Colors.purpleAccent,
+                  padding: EdgeInsets.all(15)
+                )
+              ]
+            ),
+
+            new Padding(padding: EdgeInsets.all(10)),
+
+            new Center(
+              child: ElevatedButton(
+                child: new Text("Mostrar SnackBar"),
+                onPressed: () {
+                  SnackBar snackBar = new SnackBar(
+                    content: new Text("Buenas, esta é uma SnackBar"),
+                    duration: new Duration(milliseconds: 2500),
+                    behavior: SnackBarBehavior.floating,
+                    action: SnackBarAction(
+                      label: "OK",
+                      onPressed: () {
+                        // Aqui vai o codigo de alguma ação
+                      },
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              )
+            ),
+
+            criarRow("Mensagem final")
+          ],
+        ),
         // Corpo do App
-        body: new Center(
+        /*body: Center(
           child: ElevatedButton(
+            child: new Text("Mostrar SnackBar"),
             onPressed: () {
               SnackBar snackBar = new SnackBar(
-                content: new Text("Buenas, esta é uma Snackbar"),
-                duration: new Duration(milliseconds: 2500), // 1 segundo == 1000
+                content: new Text("Buenas, esta é uma SnackBar"),
+                duration: new Duration(milliseconds: 2500),
                 behavior: SnackBarBehavior.floating,
                 action: SnackBarAction(
                   label: "OK",
                   onPressed: () {
-                    // Aqui vai o código de alguma ação...
-                  }
+                    // Aqui vai o codigo de alguma ação
+                  },
                 ),
               );
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            },
-
-            // Texto do Botão SnackBar
-            child: Text("Mostrar SnackBar"),
+            }
           )
-        ),
+        ),*/
 
         // Barra de Ícones (inferior)
-        bottomNavigationBar: new BottomNavigationBar(
+        bottomNavigationBar: BottomNavigationBar(
           items: [
-            // Ícone Home
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.home),
-              label: "Home"
-            ),
+            // ícone Home
+            BottomNavigationBarItem(icon: new Icon(Icons.home), label: "Home"),
 
             // Ícone Configurações
             BottomNavigationBarItem(
-              icon: new Icon(Icons.settings),
-              label: "Configurações"
-            ),
+                icon: new Icon(Icons.settings), label: "Configurações"),
 
             // Ícone Login
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.login),
-              label: "Login"
-            )
+            BottomNavigationBarItem(icon: new Icon(Icons.login), label: "Login")
           ],
         ),
-      )
+      ),
     );
   }
 }
